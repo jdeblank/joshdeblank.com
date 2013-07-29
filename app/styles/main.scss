@@ -1,0 +1,178 @@
+//compass imports
+@import "compass/css3";
+//susy imports
+@import "susy";
+@include border-box-sizing;
+//Susy grid defaults
+$total-columns  : 6;              // a 12-column grid
+$column-width   : 2em;            // each column is 4em wide
+$gutter-width   : 1em;            // 1em gutters between columns
+$grid-padding   : $gutter-width;  // grid-padding equal to gutters
+
+$tablet: 12;
+
+//colours
+$dark-blue  : #393440;
+$light-blue : #696E8C;
+$grey       : #F1E9F2;
+$dark-grey  : #B6B0B8;
+$yellow     : #F2EA72;
+$tan        : #565A73;
+
+//import partials
+@import "font";
+
+
+body {
+    @include text-shadow(white 1px 1px 0);
+    margin-bottom: 2em;
+    background: #F1E9F2;
+    font-family: 'PT Sans', Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 25px;
+    color: $dark-blue;
+}
+
+.container {
+    @include container($total-columns, $tablet);
+    // @include susy-grid-background;
+
+    header { 
+        @include clearfix;
+        margin-top: 3em;
+        border-bottom: 4px double $dark-grey;
+    }
+    section {
+    }
+}
+
+.contact {
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 10px;
+    }
+    a {
+        @include transition(all 0.5s);
+        text-decoration: none;
+        color: $dark-blue;
+        &:before {
+            @include transition(all 0.2s);
+            margin-right: 0.5em;
+            line-height: 0.4em;
+        }
+        &:hover {
+            color: $light-blue;
+            // @include text-shadow($dark-blue 1px 1px 0);
+            &:before {
+                padding-right: 5px;
+                border-right: 4px double $dark-blue;
+            }
+        }
+    }
+}
+
+
+h1, h2, h3 {
+    font-family: 'Arvo', Georgia, Times, serif;
+}
+h1 {
+    @include span-columns(6);
+    margin:  0;
+    font-size: 2em;
+    line-height: 1;
+    text-align: center;
+}
+h2 {
+    @include span-columns(6);
+    margin-top: 0.8em;
+    font-size: 1em;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    color: $tan;
+}
+h3 {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    color: $tan;
+    padding: 0 0 3px 0;
+    margin: 5px 0 20px;
+    border-bottom: 4px double $dark-grey;
+}
+
+.werk {
+    @include clearfix;
+}
+.jerb {
+    @include span-columns(6);
+    @include perspective(1000);
+    height: 169px;
+    margin-bottom: 1.5em;
+    &:hover {
+        & .card {
+            @include rotateY(180deg);
+        }
+        &.hover .card {
+            @include rotateY(180deg);
+        }
+    }
+    .card {
+        @include transform-style();
+        @include transition(all 0.6s ease-in-out);
+        position: relative;
+        height: 100%;
+        width: 100%;
+    }
+    .front, .back {
+        @include transition(all 0.3s ease-in-out);
+        @include border-radius(10px);
+        @include backface-visibility(hidden);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        overflow: hidden;
+        border: 2px solid $dark-grey;
+    }
+    .front {
+        z-index: 2;
+        img {
+            width: 100%;
+        }
+    }
+    .back {
+        @include backface-visibility(hidden);
+        @include rotateY(180deg);
+        @include text-shadow($dark-blue 1px 1px 0);
+        background: #272822 url(../images/werk/bg.png);
+        padding: 1.5em;
+        color: $yellow;
+        a {
+            color: white;
+        }
+        p {
+            margin: 5px 0;
+        }
+    }
+}
+
+@include at-breakpoint($tablet){
+    h1 {
+        @include span-columns(8);
+        font-size: 3em;
+        text-align: left;
+    }
+    h2 {
+        @include span-columns(4 omega);
+        text-align: left;
+    }
+    .jerb {
+        @include span-columns(6);
+        @include nth-omega(2n);
+
+    }
+
+}
+
